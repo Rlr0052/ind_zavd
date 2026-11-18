@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Академічне e-portfolio магістранта спеціальності F3 Комп'ютерні науки, ЦДУ імені Володимира Винниченка"
+    />
+    <title>Моторний Максим - академічне e-portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Manrope:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    />
+    <style>
+      /* Layout: one reading column; each section is a row with a small label rail on the left and content on the right, stacking on phones. Motif: an accelerometer trace under the name. */
+      :root {
+        --bg: #f3f4f2;
+        --surface: #fbfbfa;
+        --fg: #1c2228;
+        --muted: #56606a;
+        --line: #d9dcd8;
+        --accent: #2b5d8c;
+        --mark: #d9a700;
+        --fill-bg: #fff1bf;
+        --fill-fg: #6b4e00;
+        --display: "Unbounded", "Manrope", Arial, sans-serif;
+        --body: "Manrope", "Segoe UI", Arial, sans-serif;
+        --mono: "IBM Plex Mono", Consolas, monospace;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #14181c;
+          --surface: #1b2026;
+          --fg: #e8eaec;
+          --muted: #9aa3ad;
+          --line: #2c333b;
+          --accent: #86b6e6;
+          --mark: #e3b505;
+          --fill-bg: #3a3110;
+          --fill-fg: #f2d27a;
+          color-scheme: dark;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #14181c;
+        --surface: #1b2026;
+        --fg: #e8eaec;
+        --muted: #9aa3ad;
+        --line: #2c333b;
+        --accent: #86b6e6;
+        --mark: #e3b505;
+        --fill-bg: #3a3110;
+        --fill-fg: #f2d27a;
+        color-scheme: dark;
+      }
+      :root {
+        color-scheme: light;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+      }
+      img {
+        max-width: 100%;
+      }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: var(--body);
+        font-size: 17px;
+        line-height: 1.6;
+      }
+      .wrap {
+        max-width: 920px;
+        margin: 0 auto;
+        padding-left: max(16px, env(safe-area-inset-left, 0px));
+        padding-right: max(16px, env(safe-area-inset-right, 0px));
+        padding-block: 56px 72px;
+        display: flex;
+        flex-direction: column;
+        gap: 56px;
+      }
+      .fill {
+        background: var(--fill-bg);
+        color: var(--fill-fg);
+        border-radius: 4px;
+        padding: 0 4px;
+        font-family: var(--mono);
+        font-size: 0.88em;
+      }
+      a {
+        color: var(--accent);
+        text-underline-offset: 3px;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      /* Hero */
+      .hero {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      h1 {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: clamp(30px, 6vw, 48px);
+        line-height: 1.12;
+        margin: 0;
+        text-wrap: balance;
+      }
+      .role {
+        font-size: 19px;
+        margin: 0;
+        max-width: 62ch;
+      }
+      .role b {
+        font-weight: 700;
+      }
+      .trace {
+        width: 100%;
+        height: 64px;
+        display: block;
+      }
+      .trace .base {
+        stroke: var(--line);
+      }
+      .trace .sig {
+        stroke: var(--fg);
+      }
+      .trace .peak {
+        fill: var(--mark);
+      }
+      .trace-cap {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--muted);
+        margin: -8px 0 0;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .chips a,
+      .chips span.chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        border-radius: 999px;
+        padding: 6px 14px;
+        font-size: 15px;
+        text-decoration: none;
+        color: var(--fg);
+      }
+      .chips .tag {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      /* Sections */
+      section.row {
+        display: grid;
+        grid-template-columns: 180px minmax(0, 1fr);
+        gap: 24px;
+        border-top: 1px solid var(--line);
+        padding-top: 24px;
+      }
+      section.row > h2 {
+        font-family: var(--mono);
+        font-weight: 500;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 4px 0 0;
+      }
+      .content {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        min-width: 0;
+      }
+      .content p {
+        margin: 0;
+        max-width: 66ch;
+      }
+      h3 {
+        font-family: var(--body);
+        font-weight: 700;
+        font-size: 18px;
+        margin: 0;
+        line-height: 1.35;
+      }
+      .item {
+        display: grid;
+        grid-template-columns: 120px minmax(0, 1fr);
+        gap: 16px;
+      }
+      .when {
+        font-family: var(--mono);
+        font-size: 14px;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+        padding-top: 2px;
+      }
+      .item .what {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0;
+      }
+      .item .what p {
+        color: var(--muted);
+      }
+
+      .project {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .project .meta {
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .pipeline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .pipeline li {
+        font-size: 14px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 4px 10px;
+      }
+      .pipeline li + li::before {
+        content: "\2192";
+        margin-right: 8px;
+        color: var(--muted);
+      }
+
+      .skills {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px 24px;
+      }
+      .skills div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .skills .k {
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .contact {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+      }
+      .contact .addr {
+        font-family: var(--mono);
+        font-size: 15px;
+        user-select: all;
+      }
+      button.copy {
+        font: inherit;
+        font-size: 14px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        color: var(--fg);
+        border-radius: 6px;
+        padding: 4px 12px;
+        cursor: pointer;
+      }
+      .note {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      footer {
+        font-size: 14px;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        padding-top: 20px;
+      }
+
+      @media (max-width: 640px) {
+        section.row {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .item {
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
+        .skills {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .trace .sig {
+          stroke-dasharray: 1200;
+          stroke-dashoffset: 0;
+          animation: draw 1.4s ease-out both;
+        }
+        @keyframes draw {
+          from {
+            stroke-dashoffset: 1200;
+          }
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="hero">
+        <p class="eyebrow">Академічне e-portfolio</p>
+        <h1>Моторний Максим Олексійович</h1>
+        <p class="role">
+          Магістрант спеціальності <b>F3 Комп'ютерні науки</b>,
+          Центральноукраїнський державний університет імені Володимира
+          Винниченка. Досліджую, як за даними акселерометра смартфона
+          автоматично знаходити ями на дорогах.
+        </p>
+        <svg
+          class="trace"
+          viewBox="0 0 880 64"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <line class="base" x1="0" y1="32" x2="880" y2="32" stroke-width="1" />
+          <path
+            class="sig"
+            fill="none"
+            stroke-width="2"
+            stroke-linejoin="round"
+            d="M0 32 L60 31 L120 33 L180 31 L240 32 L300 33 L330 32 L350 52 L370 8 L390 44 L405 26 L420 35 L440 31 L520 32 L580 33 L640 31 L670 32 L690 14 L710 56 L730 22 L745 37 L760 30 L800 32 L880 32"
+          />
+          <circle class="peak" cx="350" cy="52" r="5" />
+          <circle class="peak" cx="690" cy="14" r="5" />
+        </svg>
+        <p class="trace-cap">
+          Вертикальне прискорення під час поїздки: яма (перший пік вниз) і
+          лежачий поліцейський (перший пік вгору)
+        </p>
+        <ul class="chips" aria-label="Наукові профілі">
+          <li>
+            <a
+              href="https://orcid.org/0009-0006-7355-5041"
+              target="_blank"
+              rel="noopener"
+              ><span class="tag">ORCID</span>0009-0006-7355-5041</a
+            >
+          </li>
+          <li>
+            <a href="https://github.com/Rlr0052" target="_blank" rel="noopener"
+              ><span class="tag">GitHub</span>Rlr0052</a
+            >
+          </li>
+        </ul>
+      </header>
+
+      <main style="display: flex; flex-direction: column; gap: 40px">
+        <section class="row" aria-labelledby="h-about">
+          <h2 id="h-about">Про мене</h2>
+          <div class="content">
+            <p>
+              Мене цікавить машинне навчання для даних із сенсорів і те, як
+              перетворити його на корисний мобільний продукт. У магістерській
+              роботі поєдную обробку сигналів, класифікацію часових рядів і
+              розробку на Flutter.
+            </p>
+            <p>
+              <b>Наукові інтереси:</b> машинне навчання для даних сенсорів,
+              класифікація часових рядів, мобільна розробка, інтелектуальні
+              транспортні системи.
+            </p>
+          </div>
+        </section>
+
+        <section class="row" aria-labelledby="h-edu">
+          <h2 id="h-edu">Освіта</h2>
+          <div class="content">
+            <div class="item">
+              <span class="when">2026 - 2027</span>
+              <div class="what">
+                <h3>Магістр, F3 Комп'ютерні науки</h3>
+                <p>
+                  Центральноукраїнський державний університет імені Володимира
+                  Винниченка. Науковий керівник: Пузікова Анна Валентинівна.
+                </p>
+              </div>
+            </div>
+            <div class="item">
+              <span class="when">2022 - 2026</span>
+              <div class="what">
+                <h3>Бакалавр, F3 Комп'ютерні науки</h3>
+                <p>
+                  Центральноукраїнський державний університет імені Володимира
+                  Винниченка. Дипломна робота: «Проєктування та розробка
+                  мобільного додатку для AI-аналізу харчових продуктів із
+                  клієнт-серверною архітектурою та системою збереження даних».
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="row" aria-labelledby="h-res">
+          <h2 id="h-res">Дослідження</h2>
+          <div class="content">
+            <article class="project">
+              <p class="meta">Магістерська робота · 2026 - 2027 · у процесі</p>
+              <h3>
+                Розробка кросплатформеного мобільного додатку для моніторингу
+                стану дорожнього покриття на основі даних акселерометра з
+                використанням методів машинного навчання
+              </h3>
+              <p>
+                Мобільний застосунок на Flutter записує прискорення і координати
+                під час звичайної поїздки, сам розпізнає ями та інші дефекти й
+                позначає їх на карті. Запропонував нову ознаку сигналу, напрямок
+                першого піку, для розрізнення ям і лежачих поліцейських.
+              </p>
+              <p>
+                Порівнюю моделі Random Forest, SVM і 1D-CNN. Далі заплановано
+                технічний експеримент і тестування застосунку з водіями.
+              </p>
+              <ul class="pipeline" aria-label="Етапи обробки даних">
+                <li>Акселерометр і GPS</li>
+                <li>Фільтрація</li>
+                <li>Ознаки сигналу</li>
+                <li>Модель ML</li>
+                <li>Карта дефектів</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="row" aria-labelledby="h-skills">
+          <h2 id="h-skills">Навички</h2>
+          <div class="content">
+            <div class="skills">
+              <div>
+                <span class="k">Мови програмування</span
+                ><span>Dart, C++, C#, JavaScript, Python</span>
+              </div>
+              <div>
+                <span class="k">Машинне навчання</span
+                ><span>Random Forest, SVM, 1D-CNN</span>
+              </div>
+              <div>
+                <span class="k">Мобільна розробка</span
+                ><span>Flutter, Android Studio, Xcode, React Native</span>
+              </div>
+              <div><span class="k">Інструменти</span><span>Git</span></div>
+              <div>
+                <span class="k">Мови</span
+                ><span>Українська - рідна, англійська - C1</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="row" aria-labelledby="h-contact">
+          <h2 id="h-contact">Контакти</h2>
+          <div class="content">
+            <div class="contact">
+              <span class="addr" id="addr">13500277@cuspu.edu.ua</span>
+              <a href="mailto:13500277@cuspu.edu.ua">Написати листа</a>
+              <button class="copy" id="copy-btn" type="button">
+                Скопіювати
+              </button>
+            </div>
+            <p class="note">
+              Для зв'язку щодо досліджень і співпраці. Телефон і домашню адресу
+              тут не публікую.
+            </p>
+            <p class="note">Кропивницький, Україна</p>
+          </div>
+        </section>
+      </main>
+
+      <footer>Оновлено: листопад 2026</footer>
+    </div>
+
+    <script>
+      (function () {
+        var btn = document.getElementById("copy-btn");
+        var addr = document.getElementById("addr");
+        btn.addEventListener("click", function () {
+          var text = addr.textContent.trim();
+          var done = function () {
+            btn.textContent = "Скопійовано";
+            setTimeout(function () {
+              btn.textContent = "Скопіювати";
+            }, 1600);
+          };
+          var fallback = function () {
+            var r = document.createRange();
+            r.selectNodeContents(addr);
+            var s = window.getSelection();
+            s.removeAllRanges();
+            s.addRange(r);
+            btn.textContent = "Виділено, натисніть Ctrl+C";
+          };
+          try {
+            navigator.clipboard.writeText(text).then(done, fallback);
+          } catch (e) {
+            fallback();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
