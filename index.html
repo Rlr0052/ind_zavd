@@ -311,6 +311,23 @@
         padding: 4px 12px;
         cursor: pointer;
       }
+      .toc {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 16px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        font-family: var(--mono);
+        font-size: 13px;
+      }
+      .toc a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+      .toc a:hover {
+        color: var(--accent);
+      }
       .note {
         font-size: 14px;
         color: var(--muted);
@@ -336,6 +353,9 @@
         }
       }
       @media (prefers-reduced-motion: no-preference) {
+        html {
+          scroll-behavior: smooth;
+        }
         .trace .sig {
           stroke-dasharray: 1200;
           stroke-dashoffset: 0;
@@ -399,10 +419,20 @@
             >
           </li>
         </ul>
+        <nav aria-label="Розділи сторінки">
+          <ul class="toc">
+            <li><a href="#about">Про мене</a></li>
+            <li><a href="#education">Освіта</a></li>
+            <li><a href="#research">Дослідження</a></li>
+            <li><a href="#projects">Проєкти</a></li>
+            <li><a href="#skills">Навички</a></li>
+            <li><a href="#contact">Контакти</a></li>
+          </ul>
+        </nav>
       </header>
 
       <main style="display: flex; flex-direction: column; gap: 40px">
-        <section class="row" aria-labelledby="h-about">
+        <section class="row" id="about" aria-labelledby="h-about">
           <h2 id="h-about">Про мене</h2>
           <div class="content">
             <p>
@@ -419,7 +449,7 @@
           </div>
         </section>
 
-        <section class="row" aria-labelledby="h-edu">
+        <section class="row" id="education" aria-labelledby="h-edu">
           <h2 id="h-edu">Освіта</h2>
           <div class="content">
             <div class="item">
@@ -435,19 +465,28 @@
             <div class="item">
               <span class="when">2022 - 2026</span>
               <div class="what">
-                <h3>Бакалавр, F3 Комп'ютерні науки</h3>
+                <h3>Бакалавр, 122 Комп'ютерні науки</h3>
                 <p>
                   Центральноукраїнський державний університет імені Володимира
                   Винниченка. Дипломна робота: «Проєктування та розробка
                   мобільного додатку для AI-аналізу харчових продуктів із
                   клієнт-серверною архітектурою та системою збереження даних».
                 </p>
+                <p>
+                  Текст роботи:
+                  <a
+                    href="https://dspace.cusu.edu.ua/items/cdbca632-1b4a-47e3-b0b8-e788fde2dc04"
+                    target="_blank"
+                    rel="noopener"
+                    >репозитарій ЦДУ</a
+                  >
+                </p>
               </div>
             </div>
           </div>
         </section>
 
-        <section class="row" aria-labelledby="h-res">
+        <section class="row" id="research" aria-labelledby="h-res">
           <h2 id="h-res">Дослідження</h2>
           <div class="content">
             <article class="project">
@@ -460,12 +499,13 @@
               <p>
                 Мобільний застосунок на Flutter записує прискорення і координати
                 під час звичайної поїздки, сам розпізнає ями та інші дефекти й
-                позначає їх на карті. Запропонував нову ознаку сигналу, напрямок
-                першого піку, для розрізнення ям і лежачих поліцейських.
+                позначає їх на карті.
               </p>
               <p>
-                Порівнюю моделі Random Forest, SVM і 1D-CNN. Далі заплановано
-                технічний експеримент і тестування застосунку з водіями.
+                Перевіряю нову ознаку сигналу - напрямок першого піку - для
+                розрізнення ям і лежачих поліцейських. Планую порівняти моделі
+                Random Forest, SVM і 1D-CNN, провести технічний експеримент і
+                тестування застосунку з водіями.
               </p>
               <ul class="pipeline" aria-label="Етапи обробки даних">
                 <li>Акселерометр і GPS</li>
@@ -478,7 +518,31 @@
           </div>
         </section>
 
-        <section class="row" aria-labelledby="h-skills">
+        <section class="row" id="projects" aria-labelledby="h-proj">
+          <h2 id="h-proj">Проєкти</h2>
+          <div class="content">
+            <article class="project">
+              <p class="meta">Бакалаврська робота · 2026</p>
+              <h3>Calorie Tracker</h3>
+              <p>
+                Кросплатформений мобільний застосунок для автоматизованого
+                відстеження калорійності та нутрієнтного складу харчування з
+                AI-аналізом продуктів, клієнт-серверною архітектурою та системою
+                збереження даних.
+              </p>
+              <p>
+                <a
+                  href="https://github.com/Rlr0052/calorie-tracker"
+                  target="_blank"
+                  rel="noopener"
+                  >Код на GitHub</a
+                >
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="row" id="skills" aria-labelledby="h-skills">
           <h2 id="h-skills">Навички</h2>
           <div class="content">
             <div class="skills">
@@ -488,13 +552,16 @@
               </div>
               <div>
                 <span class="k">Машинне навчання</span
-                ><span>Random Forest, SVM, 1D-CNN</span>
+                ><span>scikit-learn, TensorFlow, NumPy, pandas</span>
               </div>
               <div>
                 <span class="k">Мобільна розробка</span
-                ><span>Flutter, Android Studio, Xcode, React Native</span>
+                ><span>Flutter, React Native</span>
               </div>
-              <div><span class="k">Інструменти</span><span>Git</span></div>
+              <div>
+                <span class="k">Інструменти</span
+                ><span>Git, Android Studio, Xcode</span>
+              </div>
               <div>
                 <span class="k">Мови</span
                 ><span>Українська - рідна, англійська - C1</span>
@@ -503,7 +570,7 @@
           </div>
         </section>
 
-        <section class="row" aria-labelledby="h-contact">
+        <section class="row" id="contact" aria-labelledby="h-contact">
           <h2 id="h-contact">Контакти</h2>
           <div class="content">
             <div class="contact">
@@ -518,6 +585,7 @@
               тут не публікую.
             </p>
             <p class="note">Кропивницький, Україна</p>
+            <p><a href="./CV.pdf" download>Завантажити CV (PDF)</a></p>
           </div>
         </section>
       </main>
